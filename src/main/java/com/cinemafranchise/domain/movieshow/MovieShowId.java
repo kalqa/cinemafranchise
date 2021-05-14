@@ -5,7 +5,7 @@ import java.util.UUID;
 import lombok.Value;
 
 @Value
-public class MovieShowId {
+class MovieShowId {
 
     UUID id;
 
