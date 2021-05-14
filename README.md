@@ -10,6 +10,11 @@
 - MovieImdbId imdbId
 - MovieRating rating
 # Decided to use Event Sourcing with Axon
+
+### 
+for AxonServer UI go to: http://localhost:8024/
+
+
 ### pros:
 - no db migration needed
 - history of choices easy Undo/Redo
@@ -19,3 +24,7 @@
 ### cons:
 - Not CQRS but CQS used.
 - not that much experience with event sourcing
+
+# Swagger URL
+### 
+ http://localhost:8080/swagger-ui
