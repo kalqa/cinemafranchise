@@ -24,17 +24,11 @@ public class MovieTest {
     }
 
     @Test
-    public void should_not_expect_movie_created_event_when_create_movie_command_was_not_passed() {
-
-    }
-
-    @Test
     public void should_expect_movie_rated_event_when_rate_movie_command_was_passed() {
-
-    }
-
-    @Test
-    public void should_not_expect_movie_rated_event_when_rate_movie_command_was_not_passed() {
-
+        MovieId movieId = MovieId.newOne();
+        MovieRating movieRating = new MovieRating();
+        fixture.givenNoPriorActivity()
+                .when(new RateMovieCommand(movieId, movieRating))
+                .expectEvents(new MovieRatedEvent(movieId, movieRating));
     }
 }

@@ -20,12 +20,23 @@ public class Movie {
     }
 
     @CommandHandler
-    public Movie(CreateMovieCommand createMovieCommand) {
-        AggregateLifecycle.apply(new MovieCreatedEvent(createMovieCommand.getMovieId()));
+    public Movie(CreateMovieCommand cmd) {
+        AggregateLifecycle.apply(new MovieCreatedEvent(cmd.getMovieId()));
+    }
+
+    @CommandHandler
+    public Movie(RateMovieCommand cmd) {
+        AggregateLifecycle.apply(new MovieRatedEvent(cmd.getMovieId(), cmd.getMovieRate()));
     }
 
     @EventSourcingHandler
     public void on(MovieCreatedEvent event) {
         this.movieId = event.getMovieId();
+    }
+
+    @EventSourcingHandler
+    public void on(MovieRatedEvent event) {
+        this.movieId = event.getMovieId();
+        this.movieRating = event.getMovieRating();
     }
 }
