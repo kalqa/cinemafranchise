@@ -1,6 +1,5 @@
 package com.cinemafranchise.domain.movie;
 
-import com.cinemafranchise.shared.common.MovieId;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,18 +16,17 @@ public class MovieTest {
 
     @Test
     public void should_expect_movie_created_event_when_create_movie_command_was_passed() {
-        MovieId movieId = MovieId.newOne();
+        Movie movie = MovieFixture.aMovie();
         fixture.givenNoPriorActivity()
-                .when(new CreateMovieCommand(movieId))
-                .expectEvents(new MovieCreatedEvent(movieId));
+                .when(new CreateMovieCommand(movie.getMovieId(), movie))
+                .expectEvents(new MovieCreatedEvent(movie.getMovieId(), movie));
     }
 
     @Test
     public void should_expect_movie_rated_event_when_rate_movie_command_was_passed() {
-        MovieId movieId = MovieId.newOne();
-        MovieRating movieRating = new MovieRating();
+        Movie movie = MovieFixture.aMovie();
         fixture.givenNoPriorActivity()
-                .when(new RateMovieCommand(movieId, movieRating))
-                .expectEvents(new MovieRatedEvent(movieId, movieRating));
+                .when(new RateMovieCommand(movie.getMovieId(), movie.getMovieRating()))
+                .expectEvents(new MovieRatedEvent(movie.getMovieId(), movie.getMovieRating()));
     }
 }

@@ -4,4 +4,6 @@ import lombok.Value;
 
 @Value
 public class MovieTitle {
+
+    String value;
 }

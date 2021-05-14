@@ -9,4 +9,5 @@ public class CreateMovieCommand {
 
     @TargetAggregateIdentifier
     MovieId movieId;
+    Movie movie;
 }
