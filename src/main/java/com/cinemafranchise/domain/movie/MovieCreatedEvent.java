@@ -7,5 +7,7 @@ import lombok.Value;
 public class MovieCreatedEvent {
 
     MovieId movieId;
-    Movie movie;
+    MovieImdbId movieImdbId;
+    MovieTitle movieTitle;
+    MovieRating movieRating;
 }

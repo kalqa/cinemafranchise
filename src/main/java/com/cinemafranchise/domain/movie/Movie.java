@@ -25,7 +25,7 @@ public class Movie {
 
     @CommandHandler
     public Movie(CreateMovieCommand cmd) {
-        AggregateLifecycle.apply(new MovieCreatedEvent(cmd.getMovieId(), cmd.getMovie()));
+        AggregateLifecycle.apply(new MovieCreatedEvent(cmd.getMovieId(), cmd.getMovieImdbId(), cmd.getMovieTitle(), cmd.getMovieRating()));
     }
 
     @CommandHandler
