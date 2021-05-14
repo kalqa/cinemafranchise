@@ -1,5 +1,8 @@
 package com.cinemafranchise.domain.movieshow;
 
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
+
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +20,7 @@ public class MovieShowTest {
     @Test
     public void should_expect_movie_show_price_changed_event_when_change_movie_show_price_command_was_passed() {
         MovieShowId movieShowId = MovieShowId.newOne();
-        Price price = new Price();
+        Price price = new Price(BigDecimal.valueOf(120));
         fixture.givenNoPriorActivity()
                 .when(new ChangeMovieShowPriceCommand(movieShowId, price))
                 .expectEvents(new MovieShowPriceChangedEvent(movieShowId, price));
@@ -26,7 +29,7 @@ public class MovieShowTest {
     @Test
     public void should_expect_movie_show_time_changed_event_when_change_movie_show_time_command_was_passed() {
         MovieShowId movieShowId = MovieShowId.newOne();
-        ShowTime showTime = new ShowTime();
+        ShowTime showTime = new ShowTime(ZonedDateTime.now());
         fixture.givenNoPriorActivity()
                 .when(new ChangeMovieShowTimeCommand(movieShowId, showTime))
                 .expectEvents(new MovieShowTimeChangedEvent(movieShowId, showTime));
