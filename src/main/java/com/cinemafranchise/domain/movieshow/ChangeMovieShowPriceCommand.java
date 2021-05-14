@@ -8,4 +8,5 @@ public class ChangeMovieShowPriceCommand {
 
     @TargetAggregateIdentifier
     MovieShowId movieShowId;
+    Price price;
 }

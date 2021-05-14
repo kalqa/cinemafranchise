@@ -21,11 +21,23 @@ public class MovieShow {
 
     @CommandHandler
     public MovieShow(ChangeMovieShowPriceCommand cmd) {
-        AggregateLifecycle.apply(new MovieShowPriceChangedEvent(cmd.getMovieShowId()));
+        AggregateLifecycle.apply(new MovieShowPriceChangedEvent(cmd.getMovieShowId(), cmd.getPrice()));
+    }
+
+    @CommandHandler
+    public MovieShow(ChangeMovieShowTimeCommand cmd) {
+        AggregateLifecycle.apply(new MovieShowTimeChangedEvent(cmd.getMovieShowId(), cmd.getShowTime()));
     }
 
     @EventSourcingHandler
     public void on(MovieShowPriceChangedEvent event) {
         this.movieShowId = event.getMovieShowId();
+        this.price = event.getPrice();
+    }
+
+    @EventSourcingHandler
+    public void on(MovieShowTimeChangedEvent event) {
+        this.movieShowId = event.getMovieShowId();
+        this.showTime = event.getShowTime();
     }
 }

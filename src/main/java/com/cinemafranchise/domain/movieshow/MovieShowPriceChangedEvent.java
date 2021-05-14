@@ -6,4 +6,5 @@ import lombok.Value;
 public class MovieShowPriceChangedEvent {
 
     MovieShowId movieShowId;
+    Price price;
 }
