@@ -9,5 +9,7 @@ public class CreateMovieCommand {
 
     @TargetAggregateIdentifier
     MovieId movieId;
-    Movie movie;
+    MovieImdbId movieImdbId;
+    MovieTitle movieTitle;
+    MovieRating movieRating;
 }

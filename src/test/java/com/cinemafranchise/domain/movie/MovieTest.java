@@ -18,8 +18,8 @@ public class MovieTest {
     public void should_expect_movie_created_event_when_create_movie_command_was_passed() {
         Movie movie = MovieFixture.aMovie();
         fixture.givenNoPriorActivity()
-                .when(new CreateMovieCommand(movie.getMovieId(), movie))
-                .expectEvents(new MovieCreatedEvent(movie.getMovieId(), movie));
+                .when(new CreateMovieCommand(movie.getMovieId(), movie.getMovieImdbId(), movie.getMovieTitle(), movie.getMovieRating()))
+                .expectEvents(new MovieCreatedEvent(movie.getMovieId(), movie.getMovieImdbId(), movie.getMovieTitle(), movie.getMovieRating()));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class MovieTest {
     public void should_change_movie_rating_from_five_stars_to_one_star() {
         Movie givenMovie = MovieFixture.aMovie(MovieRating.of(MovieStars.FIVE_STARS));
 
-        fixture.given(new CreateMovieCommand(givenMovie.getMovieId(), givenMovie))
+        fixture.given(new CreateMovieCommand(givenMovie.getMovieId(), givenMovie.getMovieImdbId(), givenMovie.getMovieTitle(), givenMovie.getMovieRating()))
                 .when(new RateMovieCommand(givenMovie.getMovieId(), MovieRating.of(MovieStars.ONE_STAR)))
                 .expectEvents(new MovieRatedEvent(givenMovie.getMovieId(), MovieRating.of(MovieStars.ONE_STAR)));
     }
@@ -43,7 +43,7 @@ public class MovieTest {
     public void should_change_movie_rating_from_not_yet_rated_to_three_stars() {
         Movie givenMovie = MovieFixture.aMovie();
 
-        fixture.given(new CreateMovieCommand(givenMovie.getMovieId(), givenMovie))
+        fixture.given(new CreateMovieCommand(givenMovie.getMovieId(), givenMovie.getMovieImdbId(), givenMovie.getMovieTitle(), givenMovie.getMovieRating()))
                 .when(new RateMovieCommand(givenMovie.getMovieId(), MovieRating.of(MovieStars.THREE_STARS)))
                 .expectEvents(new MovieRatedEvent(givenMovie.getMovieId(), MovieRating.of(MovieStars.THREE_STARS)));
     }
