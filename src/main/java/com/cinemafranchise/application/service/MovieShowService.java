@@ -3,17 +3,16 @@ package com.cinemafranchise.application.service;
 import java.util.concurrent.ExecutionException;
 
 import com.cinemafranchise.application.controller.MovieShowRequest;
-import com.cinemafranchise.application.dto.ShowsDto;
 import com.cinemafranchise.domain.movieshow.ChangeMovieShowPriceAndTimeCommand;
 import com.cinemafranchise.domain.movieshow.CreateMovieShowCommand;
 import com.cinemafranchise.domain.movieshow.GetMovieShowQuery;
 import com.cinemafranchise.domain.movieshow.MovieShow;
 import com.cinemafranchise.shared.common.MovieId;
+import com.cinemafranchise.shared.common.dto.ShowsDto;
 import lombok.AllArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @AllArgsConstructor
@@ -22,9 +21,9 @@ public class MovieShowService {
     private final CommandGateway commandGateway;
     private final QueryGateway queryGateway;
 
-    public ShowsDto findMovieTimesByTitle(@RequestBody MovieShowRequest request) throws ExecutionException, InterruptedException {
+    public ShowsDto findMovieTimesByTitle(String title) throws ExecutionException, InterruptedException {
         MovieShow movieShow = queryGateway.query(
-                new GetMovieShowQuery(request.getTitle()),
+                new GetMovieShowQuery(title),
                 MovieShow.class).get();
         return new ShowsDto(movieShow.getShowTimes());
     }

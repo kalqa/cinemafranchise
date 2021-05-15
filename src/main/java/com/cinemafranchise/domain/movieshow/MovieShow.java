@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.cinemafranchise.application.dto.ShowDto;
+import com.cinemafranchise.shared.common.dto.ShowDto;
 import com.cinemafranchise.shared.common.MovieId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

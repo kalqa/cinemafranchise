@@ -4,9 +4,7 @@ import com.cinemafranchise.shared.common.MovieStars;
 import lombok.Data;
 
 @Data
-public class MovieRequest {
+public class RateMovieRequest {
 
-    String title;
-    String imdbId;
     MovieStars movieStars;
 }

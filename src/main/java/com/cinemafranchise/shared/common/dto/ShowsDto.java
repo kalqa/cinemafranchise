@@ -1,4 +1,4 @@
-package com.cinemafranchise.application.dto;
+package com.cinemafranchise.shared.common.dto;
 
 import java.util.Set;
 
