@@ -3,8 +3,8 @@ package com.cinemafranchise.domain.movieshow;
 import lombok.Value;
 
 @Value
-public class MovieShowPriceChangedEvent {
+public class MovieShowPriceAndTimeChangedEvent {
 
     MovieShowId movieShowId;
-    Price price;
+    Shows shows;
 }

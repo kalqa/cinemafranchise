@@ -47,4 +47,9 @@ public class MovieTest {
                 .when(new RateMovieCommand(givenMovie.getMovieId(), MovieRating.of(MovieStars.THREE_STARS)))
                 .expectEvents(new MovieRatedEvent(givenMovie.getMovieId(), MovieRating.of(MovieStars.THREE_STARS)));
     }
+
+    @Test
+    public void ass() {
+
+    }
 }

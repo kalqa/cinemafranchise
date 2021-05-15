@@ -8,6 +8,5 @@ public class MovieShowCreatedEvent {
 
     MovieShowId movieShowId;
     MovieId movieId;
-    Price price;
-    ShowTime showTime;
+    Shows shows;
 }
