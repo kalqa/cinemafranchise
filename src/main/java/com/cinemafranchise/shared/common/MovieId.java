@@ -12,4 +12,8 @@ public class MovieId {
     public static MovieId newOne() {
         return new MovieId(UUID.randomUUID());
     }
+
+    public static MovieId newOne(String id) {
+        return new MovieId(UUID.fromString(id));
+    }
 }

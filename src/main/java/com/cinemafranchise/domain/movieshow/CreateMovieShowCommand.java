@@ -1,6 +1,7 @@
 package com.cinemafranchise.domain.movieshow;
 
 import com.cinemafranchise.shared.common.MovieId;
+import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
@@ -8,7 +9,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CreateMovieShowCommand {
 
     @TargetAggregateIdentifier
-    MovieShowId movieShowId;
+    MovieTitle movieTitle;
     MovieId movieId;
     Shows shows;
 }

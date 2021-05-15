@@ -5,6 +5,7 @@ import java.time.ZonedDateTime;
 import java.util.Collections;
 
 import com.cinemafranchise.shared.common.MovieId;
+import com.cinemafranchise.shared.common.MovieTitle;
 
 public class MovieShowFixture {
 
@@ -13,6 +14,6 @@ public class MovieShowFixture {
     }
 
     public static MovieShow aMovieShow(Shows shows) {
-        return new MovieShow(MovieShowId.newOne(), MovieId.newOne(), shows);
+        return new MovieShow(new MovieTitle("Fast Furious"), MovieId.newOne(), shows);
     }
 }

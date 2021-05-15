@@ -5,11 +5,15 @@ import java.util.UUID;
 import lombok.Value;
 
 @Value
-class MovieShowId {
+public class MovieShowId {
 
     UUID id;
 
     public static MovieShowId newOne() {
         return new MovieShowId(UUID.randomUUID());
+    }
+
+    public static MovieShowId newOne(UUID id) {
+        return new MovieShowId(id);
     }
 }

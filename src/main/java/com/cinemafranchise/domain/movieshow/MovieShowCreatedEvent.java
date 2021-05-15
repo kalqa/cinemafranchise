@@ -1,12 +1,13 @@
 package com.cinemafranchise.domain.movieshow;
 
 import com.cinemafranchise.shared.common.MovieId;
+import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.Value;
 
 @Value
 public class MovieShowCreatedEvent {
 
-    MovieShowId movieShowId;
+    MovieTitle movieTitle;
     MovieId movieId;
     Shows shows;
 }

@@ -24,8 +24,8 @@ public class MovieShowTest {
         MovieShow movieShow = MovieShowFixture.aMovieShow();
 
         fixture.givenNoPriorActivity()
-                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieShowId(), movieShow.getShows()))
-                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieShowId(), movieShow.getShows()));
+                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieTitle(), movieShow.getShows()))
+                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieTitle(), movieShow.getShows()));
     }
 
     @Test
@@ -35,8 +35,8 @@ public class MovieShowTest {
         MovieShow givenShow = MovieShowFixture.aMovieShow(new Shows(Collections.singletonMap(givenShowTime, new Price(BigDecimal.TEN))));
 
         Shows showTimePriceMap = new Shows(Collections.singletonMap(new ShowTime(ZonedDateTime.now()), new Price(BigDecimal.ONE)));
-        fixture.given(new CreateMovieShowCommand(movieShow.getMovieShowId(), movieShow.getMovieId(), showTimePriceMap))
-                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieShowId(), givenShow.getShows()))
-                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieShowId(), givenShow.getShows()));
+        fixture.given(new CreateMovieShowCommand(movieShow.getMovieTitle(), movieShow.getMovieId(), showTimePriceMap))
+                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieTitle(), givenShow.getShows()))
+                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieTitle(), givenShow.getShows()));
     }
 }

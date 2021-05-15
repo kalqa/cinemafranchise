@@ -1,6 +1,7 @@
 package com.cinemafranchise.domain.movie;
 
 import com.cinemafranchise.shared.common.MovieId;
+import com.cinemafranchise.shared.common.MovieTitle;
 
 public class MovieFixture {
 

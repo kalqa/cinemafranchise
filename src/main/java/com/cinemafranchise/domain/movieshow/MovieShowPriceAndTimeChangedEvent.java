@@ -1,10 +1,11 @@
 package com.cinemafranchise.domain.movieshow;
 
+import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.Value;
 
 @Value
 public class MovieShowPriceAndTimeChangedEvent {
 
-    MovieShowId movieShowId;
+    MovieTitle movieShowId;
     Shows shows;
 }
