@@ -10,7 +10,7 @@ import com.cinemafranchise.shared.common.MovieTitle;
 public class MovieShowFixture {
 
     public static MovieShow aMovieShow() {
-        return aMovieShow(new Shows(Collections.singletonMap(new ShowTime(ZonedDateTime.now()), new Price(BigDecimal.ONE))));
+        return aMovieShow(new Shows(Collections.singleton(new Show(ZonedDateTime.now(), BigDecimal.ONE))));
     }
 
     public static MovieShow aMovieShow(Shows shows) {

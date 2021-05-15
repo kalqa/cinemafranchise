@@ -1,9 +1,9 @@
 package com.cinemafranchise.domain.movieshow;
 
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.cinemafranchise.application.ShowDto;
 import com.cinemafranchise.shared.common.MovieId;
 import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.AllArgsConstructor;
@@ -24,10 +24,6 @@ public class MovieShow {
     private MovieId movieId;
     private Shows shows;
 
-    public static Shows createSingleShow(ZonedDateTime time, BigDecimal value) {
-        return new Shows(Collections.singletonMap(new ShowTime(time), new Price(value)));
-    }
-
     protected MovieShow() {
     }
 
@@ -39,6 +35,11 @@ public class MovieShow {
     @CommandHandler
     public MovieShow(ChangeMovieShowPriceAndTimeCommand cmd) {
         AggregateLifecycle.apply(new MovieShowPriceAndTimeChangedEvent(cmd.getMovieTitle(), cmd.getShows()));
+    }
+
+    public Set<ShowDto> getShowTimes() {
+        return shows.getShows().stream().map(show -> new ShowDto(show.getShowTime(), show.getPrice()))
+                .collect(Collectors.toSet());
     }
 
     @EventSourcingHandler

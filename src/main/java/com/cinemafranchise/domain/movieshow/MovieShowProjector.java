@@ -19,7 +19,7 @@ public class MovieShowProjector {
     @QueryHandler
     public MovieShow getMovieShow(GetMovieShowQuery query) throws ExecutionException, InterruptedException {
         CompletableFuture<MovieShow> future = new CompletableFuture<>();
-        movieShowRepository.load("" + query.getMovieShowId()).execute(future::complete);
+        movieShowRepository.load("" + query.getMovieTitle()).execute(future::complete);
         return future.get();
     }
 }

@@ -31,10 +31,10 @@ public class MovieShowTest {
     @Test
     public void should_change_show_time_and_price() {
         MovieShow movieShow = MovieShowFixture.aMovieShow();
-        ShowTime givenShowTime = new ShowTime(ZonedDateTime.of(2010, 9, 21, 23, 0, 0, 0, ZoneId.systemDefault()));
-        MovieShow givenShow = MovieShowFixture.aMovieShow(new Shows(Collections.singletonMap(givenShowTime, new Price(BigDecimal.TEN))));
+        ZonedDateTime givenShowTime = ZonedDateTime.of(2010, 9, 21, 23, 0, 0, 0, ZoneId.systemDefault());
+        MovieShow givenShow = MovieShowFixture.aMovieShow(new Shows(Collections.singleton(new Show(givenShowTime, BigDecimal.TEN))));
 
-        Shows showTimePriceMap = new Shows(Collections.singletonMap(new ShowTime(ZonedDateTime.now()), new Price(BigDecimal.ONE)));
+        Shows showTimePriceMap = new Shows(Collections.singleton(new Show(givenShowTime, BigDecimal.ONE)));
         fixture.given(new CreateMovieShowCommand(movieShow.getMovieTitle(), movieShow.getMovieId(), showTimePriceMap))
                 .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieTitle(), givenShow.getShows()))
                 .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieTitle(), givenShow.getShows()));
