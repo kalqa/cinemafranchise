@@ -1,13 +1,16 @@
 package com.cinemafranchise.domain.movieshow;
 
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
+
 import com.cinemafranchise.shared.common.MovieId;
-import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.Value;
 
 @Value
 public class MovieShowCreatedEvent {
 
-    MovieTitle movieTitle;
+    String movieTitle;
     MovieId movieId;
-    Shows shows;
+    ZonedDateTime time;
+    BigDecimal value;
 }

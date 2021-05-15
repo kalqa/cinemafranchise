@@ -3,7 +3,6 @@ package com.cinemafranchise.domain.movieshow;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Collections;
 
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
@@ -22,21 +21,23 @@ public class MovieShowTest {
     @Test
     public void should_handle_movie_show_price_and_time_changed_event_when_change_movie_show_price_and_time_command_was_called() {
         MovieShow movieShow = MovieShowFixture.aMovieShow();
+        ZonedDateTime now = ZonedDateTime.now();
+        BigDecimal one = BigDecimal.ONE;
 
-        fixture.givenNoPriorActivity()
-                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieTitle(), movieShow.getShows()))
-                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieTitle(), movieShow.getShows()));
+        fixture.given(new MovieShowCreatedEvent(movieShow.getTitle(), movieShow.getMovieId(), now, one))
+                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getTitle(), now, one))
+                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getTitle(), now, one));
     }
 
     @Test
     public void should_change_show_time_and_price() {
         MovieShow movieShow = MovieShowFixture.aMovieShow();
         ZonedDateTime givenShowTime = ZonedDateTime.of(2010, 9, 21, 23, 0, 0, 0, ZoneId.systemDefault());
-        MovieShow givenShow = MovieShowFixture.aMovieShow(new Shows(Collections.singleton(new Show(givenShowTime, BigDecimal.TEN))));
+        BigDecimal one = BigDecimal.ONE;
+        BigDecimal ten = BigDecimal.TEN;
 
-        Shows showTimePriceMap = new Shows(Collections.singleton(new Show(givenShowTime, BigDecimal.ONE)));
-        fixture.given(new CreateMovieShowCommand(movieShow.getMovieTitle(), movieShow.getMovieId(), showTimePriceMap))
-                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getMovieTitle(), givenShow.getShows()))
-                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getMovieTitle(), givenShow.getShows()));
+        fixture.given(new MovieShowCreatedEvent(movieShow.getTitle(), movieShow.getMovieId(), givenShowTime, one))
+                .when(new ChangeMovieShowPriceAndTimeCommand(movieShow.getTitle(), givenShowTime, ten))
+                .expectEvents(new MovieShowPriceAndTimeChangedEvent(movieShow.getTitle(), givenShowTime, ten));
     }
 }

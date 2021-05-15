@@ -1,11 +1,11 @@
 package com.cinemafranchise.domain.movieshow;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.cinemafranchise.application.ShowDto;
+import com.cinemafranchise.application.dto.ShowDto;
 import com.cinemafranchise.shared.common.MovieId;
-import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.axonframework.commandhandling.CommandHandler;
@@ -20,7 +20,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 public class MovieShow {
 
     @AggregateIdentifier
-    private MovieTitle movieTitle;
+    private String title;
     private MovieId movieId;
     private Shows shows;
 
@@ -29,12 +29,12 @@ public class MovieShow {
 
     @CommandHandler
     public MovieShow(CreateMovieShowCommand cmd) {
-        AggregateLifecycle.apply(new MovieShowCreatedEvent(cmd.getMovieTitle(), cmd.getMovieId(), cmd.getShows()));
+        AggregateLifecycle.apply(new MovieShowCreatedEvent(cmd.getMovieTitle(), cmd.getMovieId(), cmd.getTime(), cmd.getValue()));
     }
 
     @CommandHandler
-    public MovieShow(ChangeMovieShowPriceAndTimeCommand cmd) {
-        AggregateLifecycle.apply(new MovieShowPriceAndTimeChangedEvent(cmd.getMovieTitle(), cmd.getShows()));
+    public void changePriceAndTime(ChangeMovieShowPriceAndTimeCommand cmd) {
+        AggregateLifecycle.apply(new MovieShowPriceAndTimeChangedEvent(cmd.getMovieTitle(), cmd.getTime(), cmd.getValue()));
     }
 
     public Set<ShowDto> getShowTimes() {
@@ -44,14 +44,14 @@ public class MovieShow {
 
     @EventSourcingHandler
     public void on(MovieShowPriceAndTimeChangedEvent event) {
-        this.movieTitle = event.getMovieShowId();
-        this.shows = event.getShows();
+        this.title = event.getMovieTitle();
+        this.shows = new Shows(Collections.singleton(new Show(event.getTime(), event.getValue())));
     }
 
     @EventSourcingHandler
     public void on(MovieShowCreatedEvent event) {
-        this.movieTitle = event.getMovieTitle();
-        this.shows = event.getShows();
+        this.title = event.getMovieTitle();
+        this.shows = new Shows(Collections.singleton(new Show(event.getTime(), event.getValue())));
         this.movieId = event.getMovieId();
     }
 }
