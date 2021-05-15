@@ -1,8 +1,10 @@
-package com.cinemafranchise.domain.movieshow;
+package com.cinemafranchise.application.service;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import com.cinemafranchise.domain.movieshow.GetMovieShowQuery;
+import com.cinemafranchise.domain.movieshow.MovieShow;
 import org.axonframework.modelling.command.Repository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Service;

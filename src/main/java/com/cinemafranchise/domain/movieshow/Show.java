@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 import lombok.Value;
 
 @Value
-public class Show {
+class Show {
 
     ShowTime showTime;
     Price price;

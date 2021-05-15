@@ -1,5 +1,6 @@
-package com.cinemafranchise.domain.movieshow;
+package com.cinemafranchise.application.service;
 
+import com.cinemafranchise.domain.movieshow.MovieShow;
 import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.modelling.command.Repository;
