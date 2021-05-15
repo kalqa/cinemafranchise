@@ -17,44 +17,31 @@ public class MovieShow {
     @AggregateIdentifier
     private MovieShowId movieShowId;
     private MovieId movieId;
-    private Price price;
-    private ShowTime showTime;
+    private Shows shows;
 
     protected MovieShow() {
     }
 
     @CommandHandler
     public MovieShow(CreateMovieShowCommand cmd) {
-        AggregateLifecycle.apply(new MovieShowCreatedEvent(cmd.getMovieShowId(), cmd.getMovieId(), cmd.getPrice(), cmd.getShowTime()));
+        AggregateLifecycle.apply(new MovieShowCreatedEvent(cmd.getMovieShowId(), cmd.getMovieId(), cmd.getShows()));
     }
 
     @CommandHandler
-    public MovieShow(ChangeMovieShowPriceCommand cmd) {
-        AggregateLifecycle.apply(new MovieShowPriceChangedEvent(cmd.getMovieShowId(), cmd.getPrice()));
-    }
-
-    @CommandHandler
-    public MovieShow(ChangeMovieShowTimeCommand cmd) {
-        AggregateLifecycle.apply(new MovieShowTimeChangedEvent(cmd.getMovieShowId(), cmd.getShowTime()));
+    public MovieShow(ChangeMovieShowPriceAndTimeCommand cmd) {
+        AggregateLifecycle.apply(new MovieShowPriceAndTimeChangedEvent(cmd.getMovieShowId(), cmd.getShows()));
     }
 
     @EventSourcingHandler
-    public void on(MovieShowPriceChangedEvent event) {
+    public void on(MovieShowPriceAndTimeChangedEvent event) {
         this.movieShowId = event.getMovieShowId();
-        this.price = event.getPrice();
-    }
-
-    @EventSourcingHandler
-    public void on(MovieShowTimeChangedEvent event) {
-        this.movieShowId = event.getMovieShowId();
-        this.showTime = event.getShowTime();
+        this.shows = event.getShows();
     }
 
     @EventSourcingHandler
     public void on(MovieShowCreatedEvent event) {
         this.movieShowId = event.getMovieShowId();
-        this.showTime = event.getShowTime();
-        this.price = event.getPrice();
+        this.shows = event.getShows();
         this.movieId = event.getMovieId();
     }
 }

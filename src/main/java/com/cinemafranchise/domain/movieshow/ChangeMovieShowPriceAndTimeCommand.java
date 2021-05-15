@@ -4,9 +4,9 @@ import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Value
-public class ChangeMovieShowTimeCommand {
+public class ChangeMovieShowPriceAndTimeCommand {
 
     @TargetAggregateIdentifier
     MovieShowId movieShowId;
-    ShowTime showTime;
+    Shows shows;
 }

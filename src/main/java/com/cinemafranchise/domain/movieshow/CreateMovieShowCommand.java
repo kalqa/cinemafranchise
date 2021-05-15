@@ -10,6 +10,5 @@ public class CreateMovieShowCommand {
     @TargetAggregateIdentifier
     MovieShowId movieShowId;
     MovieId movieId;
-    Price price;
-    ShowTime showTime;
+    Shows shows;
 }
