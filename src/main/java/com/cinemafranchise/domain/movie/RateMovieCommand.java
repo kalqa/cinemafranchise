@@ -1,6 +1,8 @@
 package com.cinemafranchise.domain.movie;
 
-import com.cinemafranchise.shared.common.MovieId;
+import java.util.List;
+
+import com.cinemafranchise.shared.common.MovieStars;
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
@@ -8,6 +10,6 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class RateMovieCommand {
 
     @TargetAggregateIdentifier
-    MovieId movieId;
-    MovieRating movieRate;
+    String title;
+    List<MovieStars> stars;
 }

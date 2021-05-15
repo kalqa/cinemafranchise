@@ -9,7 +9,6 @@ import com.cinemafranchise.domain.movieshow.CreateMovieShowCommand;
 import com.cinemafranchise.domain.movieshow.GetMovieShowQuery;
 import com.cinemafranchise.domain.movieshow.MovieShow;
 import com.cinemafranchise.shared.common.MovieId;
-import com.cinemafranchise.shared.common.MovieTitle;
 import lombok.AllArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
@@ -25,7 +24,7 @@ public class MovieShowService {
 
     public ShowsDto findMovieTimesByTitle(@RequestBody MovieShowRequest request) throws ExecutionException, InterruptedException {
         MovieShow movieShow = queryGateway.query(
-                new GetMovieShowQuery(new MovieTitle(request.getTitle())),
+                new GetMovieShowQuery(request.getTitle()),
                 MovieShow.class).get();
         return new ShowsDto(movieShow.getShowTimes());
     }

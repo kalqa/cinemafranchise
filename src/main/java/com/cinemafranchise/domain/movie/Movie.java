@@ -1,7 +1,8 @@
 package com.cinemafranchise.domain.movie;
 
-import com.cinemafranchise.shared.common.MovieId;
-import com.cinemafranchise.shared.common.MovieTitle;
+import java.util.List;
+
+import com.cinemafranchise.shared.common.MovieStars;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.axonframework.commandhandling.CommandHandler;
@@ -16,33 +17,35 @@ import org.axonframework.spring.stereotype.Aggregate;
 public class Movie {
 
     @AggregateIdentifier
-    private MovieId movieId;
+    private String title;
     private MovieImdbId movieImdbId;
-    private MovieTitle movieTitle;
-    private MovieRating movieRating;
+    private List<MovieStars> movieStars;
 
     protected Movie() {
     }
 
     @CommandHandler
     public Movie(CreateMovieCommand cmd) {
-        AggregateLifecycle.apply(new MovieCreatedEvent(cmd.getMovieId(), cmd.getMovieImdbId(), cmd.getMovieTitle(), cmd.getMovieRating()));
+        AggregateLifecycle.apply(new MovieCreatedEvent(
+                cmd.getTitle(),
+                cmd.getMovieImdbId(),
+                cmd.getMovieStars()));
     }
 
     @CommandHandler
-    public Movie(RateMovieCommand cmd) {
-        AggregateLifecycle.apply(new MovieRatedEvent(cmd.getMovieId(), cmd.getMovieRate()));
+    public void rateMovie(RateMovieCommand cmd) {
+        AggregateLifecycle.apply(new MovieRatedEvent(cmd.getTitle(), cmd.getStars()));
     }
 
     @EventSourcingHandler
     public void on(MovieCreatedEvent event) {
-        this.movieId = event.getMovieId();
-        this.movieRating = MovieRating.notRatedYet();
+        this.title = event.getMovieTitle();
+        this.movieStars = event.getMovieStars();
     }
 
     @EventSourcingHandler
     public void on(MovieRatedEvent event) {
-        this.movieId = event.getMovieId();
-        this.movieRating = event.getMovieRating();
+        this.title = event.getTitle();
+        this.movieStars = event.getMovieRating();
     }
 }

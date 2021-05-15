@@ -1,11 +1,13 @@
 package com.cinemafranchise.domain.movie;
 
-import com.cinemafranchise.shared.common.MovieId;
+import java.util.List;
+
+import com.cinemafranchise.shared.common.MovieStars;
 import lombok.Value;
 
 @Value
 public class MovieRatedEvent {
 
-    MovieId movieId;
-    MovieRating movieRating;
+    String title;
+    List<MovieStars> movieRating;
 }

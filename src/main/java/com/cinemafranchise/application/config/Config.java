@@ -1,4 +1,4 @@
-package com.cinemafranchise.application.service;
+package com.cinemafranchise.application.config;
 
 import com.cinemafranchise.domain.movieshow.MovieShow;
 import org.axonframework.eventsourcing.EventSourcingRepository;
