@@ -65,6 +65,11 @@ Content-Type: application/json
   "movieStars": "ONE_STAR"
 }
 
+{
+  "title": "The Fast and the Furious",
+  "imdbId": "tt0232500"
+}
+
 #### Give Rating to a Movie
 POST http://localhost:8080/movie/The Fast and the Furious: Tokyo Drift/rating
 Content-Type: application/json
