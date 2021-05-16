@@ -28,3 +28,14 @@ for AxonServer UI go to: http://localhost:8024/
 # Swagger URL
 ### 
  http://localhost:8080/swagger-ui
+ 
+# HTTP client
+## used RestTemplate library for exchange to imdb API
+#### To configure api-key, go to application.properties and insert 
+movie.http.client.config.imdb.apikey=[your_key]
+
+For Example: 
+movie.http.client.config.imdb.apikey=812371029
+
+### Http client integration tests 
+I ecided to use WireMock server for integration test
