@@ -35,7 +35,8 @@ for AxonServer UI go to: http://localhost:8024/
 
 # Swagger URL
 ### 
- http://localhost:8080/swagger-ui
+ IMPORTANT MUST BE EXACTLY THIS PATH:
+ http://localhost:8080/swagger-ui/
  
 # HTTP client
 ## used RestTemplate library for exchange to imdb API
