@@ -19,7 +19,7 @@ public class MovieShowController {
 
     private final MovieShowService service;
 
-    @GetMapping("/{title:[a-zA-Z &+-]*}")
+    @GetMapping("/{title:[a-zA-Z :&+-]*}")
     public ShowsDto getMovieTimesByTitle(@PathVariable String title) throws ExecutionException, InterruptedException {
         return service.findMovieTimesByTitle(title);
     }
