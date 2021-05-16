@@ -51,7 +51,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody(withMovieDetails())));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/"))
+        then(remoteMovieDetailsClient.getDetails("imdbId"))
                 .isEqualTo(aFastAndFuriousDto());
     }
 
@@ -63,7 +63,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withFault(Fault.CONNECTION_RESET_BY_PEER)));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     @Test
@@ -74,7 +74,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withFault(Fault.EMPTY_RESPONSE)));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     @Test
@@ -85,7 +85,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withFault(Fault.MALFORMED_RESPONSE_CHUNK)));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     @Test
@@ -96,7 +96,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withFault(Fault.RANDOM_DATA_THEN_CLOSE)));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     @Test
@@ -107,7 +107,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody(emptyJsonBody())));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     @Test
@@ -118,7 +118,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody(emptyJsonBody())));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     @Test
@@ -130,7 +130,7 @@ class HttpMovieDetailsClientIntegrationTest {
         );
 
         BDDAssertions.thenThrownBy(() ->
-                remoteMovieDetailsClient.getDetails("imdbId", "/"))
+                remoteMovieDetailsClient.getDetails("imdbId"))
                 .hasMessage("404 NOT_FOUND");
     }
 
@@ -143,7 +143,7 @@ class HttpMovieDetailsClientIntegrationTest {
         );
 
         BDDAssertions.thenThrownBy(() ->
-                remoteMovieDetailsClient.getDetails("imdbId", "/"))
+                remoteMovieDetailsClient.getDetails("imdbId"))
                 .hasMessage("401 UNAUTHORIZED");
     }
 
@@ -157,7 +157,7 @@ class HttpMovieDetailsClientIntegrationTest {
                         .withBody(withMovieDetails())
                         .withFixedDelay(1500)));
 
-        then(remoteMovieDetailsClient.getDetails("imdbId", "/")).isEqualTo(emptyDto());
+        then(remoteMovieDetailsClient.getDetails("imdbId")).isEqualTo(emptyDto());
     }
 
     private MovieDetailsDto emptyDto() {
