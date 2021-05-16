@@ -1,0 +1,55 @@
+version: '3.3'
+services:
+  cinemaapp:
+    image: 'cinemaapp:latest'
+    build:
+      context: .
+    container_name: cinemaapp
+    ports:
+      - '8080:8080'
+    depends_on:
+      - axonserver
+    networks:
+      - axon-demo
+    environment:
+      - axon.axonserver.servers=axonserver
+      - movie.http.client.config.imdb.apikey=${APIKEY}
+      - auth.movie.jwtSecret=${JWTSECRET}
+
+  axonserver:
+    image: axoniq/axonserver
+    hostname: axonserver
+    container_name: axonServer
+    volumes:
+      - axonserver-data:/data
+      - axonserver-events:/eventdata
+      - axonserver-config:/config:ro
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - axon-demo
+
+networks:
+  axon-demo:
+
+volumes:
+  axonserver-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data
+      o: bind
+  axonserver-events:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/events
+      o: bind
+  axonserver-config:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/config
+      o: bind
