@@ -22,13 +22,13 @@ public class MovieController {
         service.saveMovie(movieRequest);
     }
 
-    @PostMapping("/{title:[a-zA-Z &+-]*}/rating")
+    @PostMapping("/{title:[a-zA-Z :&+-]*}/rating")
     public void saveMovieRating(@PathVariable String title,
                                 @RequestBody RateMovieRequest rateMovieRequest) {
         service.saveMovieRating(title, rateMovieRequest);
     }
 
-    @GetMapping("/{title:[a-zA-Z &+-]*}/details")
+    @GetMapping("/{title:[a-zA-Z :&+-]*}/details")
     public MovieDetailsDto fetchMovieDetails(@PathVariable String title) {
         return service.fetchMovieDetails(title);
     }
