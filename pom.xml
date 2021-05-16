@@ -20,6 +20,7 @@
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <axon-test.version>4.1.2</axon-test.version>
         <axon-spring-boot-starter.version>4.1.2</axon-spring-boot-starter.version>
+        <wiremock-standalone.version>2.27.2</wiremock-standalone.version>
     </properties>
 
     <dependencies>
@@ -35,6 +36,13 @@
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
 <!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>${wiremock-standalone.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
