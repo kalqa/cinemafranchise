@@ -27,15 +27,32 @@ MUST BE EXACTLY THIS PATH: http://localhost:8080/swagger-ui/
 
 # Core domain model
 ### MovieShow - representing single movie show at certain time
-- MovieShowId movieShowId ex. 1231
-- Instant showTime ex. 2019-12-21T12:00Z
-- BigDecimal price ex. 20
-- String movieTitle ex. Fast&Furious 2
+```java
+String title
+MovieId movieId
+Shows shows
+String movieTitle
+```
+### Shows - representing set of Show
+```java
+Set<Show> shows;
+```
+### Show - representing single show in the cinema, similiar to ticket in real life
+```java
+ShowTime showTime;
+Price price;
+```
 ### Movie - representing single movie in the catalogue
-- MovieId movieId
-- MovieTitle title
-- MovieImdbId imdbId
-- MovieRating rating
+```java
+String title
+MovieImdbId movieImdbId
+List<MovieStars> movieStars
+```
+
+### MovieStars - representing a 1-5 STARS which user can give to a movie, and not rated state
+```
+ONE_STAR, TWO_STARS, THREE_STARS, FOUR_STARS, FIVE_STARS, NOT_RATED
+```
 
 # Why Axon EventStore and EventSourcing?
 ### pros:
@@ -64,6 +81,7 @@ I decided to match movie by given title path due to assumption with getting data
 ## MovieController
 
 #### Creating Movie
+```json
 POST http://localhost:8080/movie/
 Content-Type: application/json
 
@@ -72,45 +90,53 @@ Content-Type: application/json
   "imdbId": "tt0463985",
   "movieStars": "ONE_STAR"
 }
+```
 
 or
 
+```json
 POST http://localhost:8080/movie/
 Content-Type: application/json
+
 {
   "title": "The Fast and the Furious",
   "imdbId": "tt0232500"
 }
-
+```
 #### Give Rating to a Movie
+```json
 POST http://localhost:8080/movie/The Fast and the Furious: Tokyo Drift/rating
 Content-Type: application/json
 
 {
   "movieStars": "TWO_STARS"
 }
-
+```
 #### Fetch Movie Details by title
+```json
 GET http://localhost:8080/movie/The Fast and the Furious: Tokyo Drift/details
 Content-Type: application/json
-
+```
 ## MovieShowController
 
 #### Fetch Movie show times by title
+```json
 GET http://localhost:8080/movieshow/The Fast and the Furious: Tokyo Drift
 Content-Type: application/json
-
+```
 #### Create MovieShow
+```json
 POST http://localhost:8080/movieshow
 Content-Type: application/json
 
 {
-  "title": "The Fast and the Furious: Tokyo Drift"",
+  "title": "The Fast and the Furious: Tokyo Drift",
   "price": 12,
   "showTime": "2021-05-15T21:46:25.38+01:00"
 }
-
+```
 #### Update movieshow price and showtime 
+```json
 POST http://localhost:8080/showTimeAndPrice
 Content-Type: application/json
 
@@ -119,21 +145,27 @@ Content-Type: application/json
   "price": 15,
   "showTime": "2021-05-15T22:46:25.38+01:00"
 }
-
+```
 
 # Security
 
-To secure internal endpoint which is POST /movieshow/showTimeAndPrice 
-I decided use JWT token to authorize it
-But in case of simplicity I decided to store "test", "test" user, and not use real Database like Mongo
-In production of course I would use it but for recruitment I decided to simplify dev ops. 
+To secure internal endpoints ex. POST /movieshow/showTimeAndPrice 
+I decided to use JWT token to authorize it.
+But in case of simplicity I decided to store test USER and not using real database like MongoDB.
+```json
+login: test
+password:test
+```
+
+IMPORTANT: **In production of course I would use it but for recruitment I decided to simplify dev ops. **
 
 ### LoginController
 You have to use /login path to generate JWT TOKEN which will be needed to access internal endpoints
 
 1. Go to: http://localhost:8080/swagger-ui/
 2. Generate jwt token with "test" and "test" using LoginController example below
-
+3. 
+```json
 POST http://localhost:8080/login
 Content-Type: application/json
 
@@ -141,6 +173,7 @@ Content-Type: application/json
     "password": "test",
     "userName": "test"
 }
+```
 
 3. Paste jwt token to Authorize on main swagger-ui page: Type Bearer {jwtToken}
 4. Then you can request internal endopoint
