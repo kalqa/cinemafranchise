@@ -24,12 +24,12 @@ public class HttpMovieDetailsClient implements RemoteMovieDetailsClient {
     private final String apiKey;
 
     @Override
-    public MovieDetailsDto getDetails(String movieId) {
+    public MovieDetailsDto getMovieDetailsBy(String imdbId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final HttpEntity<HttpHeaders> requestEntity = new HttpEntity<>(headers);
         try {
-            UriComponentsBuilder builder = buildQueryParamsAndPort(movieId, apiKey, port);
+            UriComponentsBuilder builder = buildQueryParamsAndPort(imdbId, apiKey, port);
             ResponseEntity<MovieDetailsDto> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, MovieDetailsDto.class);
             final MovieDetailsDto body = response.getBody();
             return (body != null) ? body : MovieDetailsDto.empty();

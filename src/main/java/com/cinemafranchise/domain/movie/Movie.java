@@ -32,6 +32,10 @@ public class Movie {
                 cmd.getMovieStars()));
     }
 
+    public String getImdbId() {
+        return movieImdbId.getId();
+    }
+
     @CommandHandler
     public void rateMovie(RateMovieCommand cmd) {
         AggregateLifecycle.apply(new MovieRatedEvent(cmd.getTitle(), cmd.getStars()));
@@ -40,6 +44,7 @@ public class Movie {
     @EventSourcingHandler
     public void on(MovieCreatedEvent event) {
         this.title = event.getMovieTitle();
+        this.movieImdbId = new MovieImdbId(event.getMovieImdbId());
         this.movieStars = event.getMovieStars();
     }
 

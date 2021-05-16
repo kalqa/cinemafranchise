@@ -32,7 +32,7 @@ public class MovieHttpClientConfig {
     @Bean
     RemoteMovieDetailsClient remoteMovieClient(RestTemplate restTemplate,
                                                @Value("${movie.http.client.config.uri:http://example.com}") String uri,
-                                               @Value("${movie.http.client.config.port:8080}") Integer port,
+                                               @Value("${movie.http.client.config.port:80}") Integer port,
                                                @Value("${movie.http.client.config.imdb.apikey}") String apiKey) {
         return new HttpMovieDetailsClient(restTemplate, uri, port, apiKey);
     }

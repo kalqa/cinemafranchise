@@ -4,5 +4,5 @@ import com.cinemafranchise.infrastructure.service.movie.dto.MovieDetailsDto;
 
 public interface RemoteMovieDetailsClient {
 
-    MovieDetailsDto getDetails(String id);
+    MovieDetailsDto getMovieDetailsBy(String imdbId);
 }
