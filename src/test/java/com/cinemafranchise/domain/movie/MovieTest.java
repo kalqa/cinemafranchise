@@ -50,4 +50,23 @@ public class MovieTest {
                 .when(new RateMovieCommand(givenMovie.getTitle(), Collections.singletonList(MovieStars.THREE_STARS)))
                 .expectEvents(new MovieRatedEvent(givenMovie.getTitle(), Collections.singletonList((MovieStars.THREE_STARS))));
     }
+
+    @Test
+    public void should_change_rating_two_times() {
+        Movie givenMovie = MovieFixture.aMovie();
+
+        fixture.given(new MovieCreatedEvent(givenMovie.getTitle(), "id", givenMovie.getMovieStars()))
+                .andGiven(new RateMovieCommand(givenMovie.getTitle(), Collections.singletonList(MovieStars.THREE_STARS)))
+                .when(new RateMovieCommand(givenMovie.getTitle(), Collections.singletonList(MovieStars.FIVE_STARS)))
+                .expectEvents(new MovieRatedEvent(givenMovie.getTitle(), Collections.singletonList((MovieStars.FIVE_STARS))));
+    }
+
+    @Test
+    public void should_update_movie_when_command_with_same_id_was_given() {
+        Movie givenMovie = MovieFixture.aMovie();
+
+        fixture.given(new MovieCreatedEvent(givenMovie.getTitle(), "id", givenMovie.getMovieStars()))
+                .when(new CreateMovieCommand(givenMovie.getTitle(), "id22", Collections.singletonList((MovieStars.THREE_STARS))))
+                .expectEvents(new MovieCreatedEvent(givenMovie.getTitle(), "id22", Collections.singletonList((MovieStars.THREE_STARS))));
+    }
 }
