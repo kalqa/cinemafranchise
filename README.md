@@ -4,6 +4,7 @@
 3. Decided to use Java instead of Kotlin due to smaller experience with DDD using Kotlin
 4. I leave space for handling exceptions in app by now throwing IllegalStateException -> I know better practice is to inform user why something didnt work. 
 5. Important: HTTP Statuses and in general Results from REST controllers are not implemented and would be implemented in the future.
+6. Left space for Unit&Integration tests for RestControllers, MovieService and MovieShowService would be implemented in the future.
 
 # How to run?
 **Requirements:**
