@@ -84,8 +84,7 @@ Content-Type: application/json
 GET http://localhost:8080/movieshow/The Fast and the Furious: Tokyo Drift
 Content-Type: application/json
 
-
-#### Update show time and price for movieshow
+#### Create MovieShow
 POST http://localhost:8080/movieshow
 Content-Type: application/json
 
@@ -95,3 +94,37 @@ Content-Type: application/json
   "showTime": "2021-05-15T21:46:25.38+01:00"
 }
 
+#### Update movieshow price and showtime 
+POST http://localhost:8080/showTimeAndPrice
+Content-Type: application/json
+
+{
+  "title": "The Fast and the Furious: Tokyo Drift",
+  "price": 15,
+  "showTime": "2021-05-15T22:46:25.38+01:00"
+}
+
+
+# Security
+
+To secure internal endpoint which is POST /movieshow/showTimeAndPrice 
+I decided use JWT token to authorize it
+But in case of simplicity I decided to store "test", "test" user, and not use real Database like Mongo
+In production of course I would use it but for recruitment I decided to simplify dev ops. 
+
+### LoginController
+You have to use /login path to generate JWT TOKEN which will be needed to access internal endpoints
+
+1. Go to: http://localhost:8080/swagger-ui/
+2. Generate jwt token with "test" and "test" using LoginController example below
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "password": "test",
+    "userName": "test"
+}
+
+3. Paste jwt token to Authorize on main swagger-ui page: Type Bearer {jwtToken}
+4. Then you can request internal endopoint
